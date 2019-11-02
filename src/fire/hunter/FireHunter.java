@@ -59,24 +59,38 @@ public class FireHunter {
     }
 
     static void escolhasjogador(int p1, int p2) {
-        if (p1 == 1) {
-            System.out.println("mago");
-        } else if (p1 == 2) {
-            System.out.println("cavaleiro");
-        } else if (p1 == 3) {
-            System.out.println("ranger");
-        } else if (p1 == 4) {
-            System.out.println("druida");
+        switch (p1) {
+            case 1:
+                System.out.println("mago");
+                break;
+            case 2:
+                System.out.println("cavaleiro");
+                break;
+            case 3:
+                System.out.println("ranger");
+                break;
+            case 4:
+                System.out.println("druida");
+                break;
+            default:
+                break;
         }
         System.out.println("VS");
-        if (p2 == 1) {
-            System.out.println("mago");
-        } else if (p2 == 2) {
-            System.out.println("cavaleiro");
-        } else if (p2 == 3) {
-            System.out.println("ranger");
-        } else if (p2 == 4) {
-            System.out.println("druida");
+        switch (p2) {
+            case 1:
+                System.out.println("mago");
+                break;
+            case 2:
+                System.out.println("cavaleiro");
+                break;
+            case 3:
+                System.out.println("ranger");
+                break;
+            case 4:
+                System.out.println("druida");
+                break;
+            default:
+                break;
         }
     }
 
