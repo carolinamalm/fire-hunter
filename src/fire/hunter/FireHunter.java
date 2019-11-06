@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class FireHunter {
-
+    static Scanner teclado = new Scanner(System.in);
     public static void main(String[] args) {
         int escolha = menu();
 
@@ -43,7 +43,17 @@ public class FireHunter {
             d2 = dado.nextInt(6) + 1;
         } while (d1 == d2);
         System.out.println("dado p1 : " + d1 + " dado p2: " + d2);
+
+        /*Cria os atributos de cada personagem. Linha e condizente a cada personagem. 
+        Sendo sua sequencia: (Mago, cavaleiro, ranger, druida).
+        Coluna sao os seus atributos. (Vida, esculdo e cura).
+         */
+        int atributosPersonagens[][] = {{5, 5, 2}, {5, 4, 3}, {4, 4, 4}, {4, 3, 5}};
+        
+        //contador personagem
+        int contadorPersonagem = 0;
         if (d1 > d2) {
+            
             System.out.println("p1 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
             p1 = teclado.nextInt();
             System.out.println("p2 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
@@ -57,11 +67,77 @@ public class FireHunter {
         escolhasjogador(p1, p2);
         Batalha(p1, p2, d1, d2);
     }
-
+    static void escolhaPersonagem (int atributosPersonagens [] ){
+        int escolha,player=0,player1,  player2,cont =1, cont2 =1, cont3 =1, cont4 =1,contador =2;
+      
+        
+        do{
+        System.out.println("Escolha: ");
+        escolha = teclado.nextInt();
+        switch(escolha){
+            case 1:
+                
+                  if(cont== 0){
+                    do{  
+                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
+                    escolha = teclado.nextInt();
+                    }while(escolha == 1);
+                }
+                System.out.println("mago");
+               player= 1;
+                       cont --;
+                break;
+            case 2:
+                  if(cont2== 0){
+                        do{  
+                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
+                    escolha = teclado.nextInt();
+                    }while(escolha == 2);
+                }
+                System.out.println("cavaleiro");
+                player= 2;
+                       cont2 --;
+                break;
+            case 3:
+                  if(cont3== 0){
+                     do{  
+                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
+                    escolha = teclado.nextInt();
+                    }while(escolha == 3);
+                }
+                System.out.println("ranger");
+                player= 3;
+                       cont3 --;
+                break;
+            case 4:
+                  if(cont4== 4){
+                       do{  
+                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
+                    escolha = teclado.nextInt();
+                    }while(escolha != 1);
+                }
+                System.out.println("druida");
+                player= 4;
+                       cont4--;
+                break;
+             
+        }
+        if(contador == 2){
+            player1=player;
+        }
+        else{
+            player2=player;
+        }
+        contador--;
+        
+                
+    } while(contador !=0);
+        }
     static void escolhasjogador(int p1, int p2) {
         switch (p1) {
             case 1:
                 System.out.println("mago");
+               
                 break;
             case 2:
                 System.out.println("cavaleiro");
