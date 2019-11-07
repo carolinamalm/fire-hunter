@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class FireHunter {
+
     static Scanner teclado = new Scanner(System.in);
+
     public static void main(String[] args) {
         int escolha = menu();
 
@@ -49,11 +51,18 @@ public class FireHunter {
         Coluna sao os seus atributos. (Vida, esculdo e cura).
          */
         int atributosPersonagens[][] = {{5, 5, 2}, {5, 4, 3}, {4, 4, 4}, {4, 3, 5}};
-        
+
+        /*
+        Cria a vida e esculdo de cada jogador.
+        Linha e o player.
+        coluna e a vida e esculdo.
+         */
+        int vidasPersonagens[][] = {{10, 10}, {10, 10}};
+
         //contador personagem
         int contadorPersonagem = 0;
         if (d1 > d2) {
-            
+
             System.out.println("p1 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
             p1 = teclado.nextInt();
             System.out.println("p2 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
@@ -65,79 +74,14 @@ public class FireHunter {
             p1 = teclado.nextInt();
         }
         escolhasjogador(p1, p2);
-        Batalha(p1, p2, d1, d2);
+        Batalha(p1, p2, d1, d2, atributosPersonagens, vidasPersonagens);
     }
-    static void escolhaPersonagem (int atributosPersonagens [] ){
-        int escolha,player=0,player1,  player2,cont =1, cont2 =1, cont3 =1, cont4 =1,contador =2;
-      
-        
-        do{
-        System.out.println("Escolha: ");
-        escolha = teclado.nextInt();
-        switch(escolha){
-            case 1:
-                
-                  if(cont== 0){
-                    do{  
-                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
-                    escolha = teclado.nextInt();
-                    }while(escolha == 1);
-                }
-                System.out.println("mago");
-               player= 1;
-                       cont --;
-                break;
-            case 2:
-                  if(cont2== 0){
-                        do{  
-                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
-                    escolha = teclado.nextInt();
-                    }while(escolha == 2);
-                }
-                System.out.println("cavaleiro");
-                player= 2;
-                       cont2 --;
-                break;
-            case 3:
-                  if(cont3== 0){
-                     do{  
-                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
-                    escolha = teclado.nextInt();
-                    }while(escolha == 3);
-                }
-                System.out.println("ranger");
-                player= 3;
-                       cont3 --;
-                break;
-            case 4:
-                  if(cont4== 4){
-                       do{  
-                    System.out.println("Personagem ja escolhido, selecione outro." + escolha);
-                    escolha = teclado.nextInt();
-                    }while(escolha != 1);
-                }
-                System.out.println("druida");
-                player= 4;
-                       cont4--;
-                break;
-             
-        }
-        if(contador == 2){
-            player1=player;
-        }
-        else{
-            player2=player;
-        }
-        contador--;
-        
-                
-    } while(contador !=0);
-        }
+
     static void escolhasjogador(int p1, int p2) {
         switch (p1) {
             case 1:
                 System.out.println("mago");
-               
+
                 break;
             case 2:
                 System.out.println("cavaleiro");
@@ -170,121 +114,138 @@ public class FireHunter {
         }
     }
 
-    static void Batalha(int p1, int p2, int d1, int d2) {
+    static void Batalha(int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
         int opcaoP1, opcaoP2, choose;
-        Scanner teclado = new Scanner(System.in);
         Random dadoLuta = new Random();
         int ecolha1, escolha2;
 
         if (d1 > d2) {
+            do {
+                opcaoP1 = dadoLuta.nextInt(6) + 1;
+                System.out.println("dado player 1: " + opcaoP1);
+                int a = 1;
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
 
-            opcaoP1 = dadoLuta.nextInt(6) + 1;
-            System.out.println("dado player 1: " + opcaoP1);
-            switch (opcaoP1) {
-                case 1:
-                    System.out.println("1 - ataque no escudo \n ou \n 2- cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 2:
-                    System.out.println("1- ataque no escudo \n ou \n 2- cura");
-                    break;
-                case 3:
-                    System.out.println("ataque na vida");
-                    break;
-                case 4:
-                    System.out.println("cura");
-                    break;
-                case 5:
-                    System.out.println("1 - ataque na vida \n ou \n 2- cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 6:
-                    System.out.println("1 - ataque no escudo \n ou \n 2- cura \n ou \n 3 - ataque na vida");
-                    choose = teclado.nextInt();
-                    break;
-            }
+                impressao(vidasPersonagens);
 
-            opcaoP2 = dadoLuta.nextInt(6) + 1;
-            System.out.println("dado player 2: " + opcaoP2);
-            switch (opcaoP2) {
-                case 1:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 2:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 3:
-                    System.out.println("ataque na vida");
-                    break;
-                case 4:
-                    System.out.println("cura");
-                    break;
-                case 5:
-                    System.out.println("1 - ataque na vida \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 6:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura \n ou \n 3- ataque na vida");
-                    choose = teclado.nextInt();
-                    break;
-            }
+                opcaoP2 = dadoLuta.nextInt(6) + 1;
+                System.out.println("dado player 2: " + opcaoP2);
+                a = 0;
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
+                impressao(vidasPersonagens);
+             } while ((!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)) || (!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)));
+
         } else {
+            do {
+                opcaoP2 = dadoLuta.nextInt(6) + 1;
+                System.out.println("dado player 1: " + opcaoP2);
+                int a = 0;
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
+                impressao(vidasPersonagens);
 
-            opcaoP2 = dadoLuta.nextInt(6) + 1;
-            System.out.println("dado player 2: " + opcaoP2);
-            switch (opcaoP2) {
-                case 1:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 2:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 3:
-                    System.out.println("ataque na vida");
-                    break;
-                case 4:
-                    System.out.println("cura");
-                    break;
-                case 5:
-                    System.out.println("1 - ataque na vida \n ou \n 2 - cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 6:
-                    System.out.println("1 - ataque no escudo \n ou \n 2 - cura \n ou \n 3 - ataque na vida");
-                    choose = teclado.nextInt();
-                    break;
-            }
+                opcaoP1 = dadoLuta.nextInt(6) + 1;
+                System.out.println("dado player 1: " + opcaoP1);
+                a = 1;
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
+                impressao(vidasPersonagens);
+            } while ((!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)) || (!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)));
+        }
+        impressao(vidasPersonagens);
+    }
 
-            opcaoP1 = dadoLuta.nextInt(6) + 1;
-            System.out.println("dado player 1: " + opcaoP1);
-            switch (opcaoP1) {
-                case 1:
-                    System.out.println("1 - ataque no escudo \n ou \n 2- cura");
-                    choose = teclado.nextInt();
+    static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int a) {
+        int choose;
+        switch (opcao) {
+
+            case 1:
+                System.out.println("1 - ataque no escudo \n ou \n 2- ataque na vida");
+                choose = teclado.nextInt();
+                if (choose == 1) {
+
+                    vidasPersonagens[a][1] -= atributosPersonagens[player - 1][1];
+                } else {
+
+                    vidasPersonagens[a][0] -= atributosPersonagens[player - 1][0];
+                }
+
+                break;
+            case 2:
+                System.out.println("1- ataque no escudo \n ou \n 2- cura");
+                choose = teclado.nextInt();
+                if (choose == 1) {
+                    vidasPersonagens[a][1] -= 2 * atributosPersonagens[player - 1][1];
+                } else {
+                    if (a == 0) {
+                        a = 2;
+                    }
+                    if(vidasPersonagens[a - 1][0] <10){
+                    vidasPersonagens[a - 1][0] += 2 * atributosPersonagens[player - 1][2];
+                    }
+
+                }
+                break;
+            case 3:
+                System.out.println("ataque na vida");
+                vidasPersonagens[a][0] -= 3 * atributosPersonagens[player - 1][0];
+                break;
+            case 4:
+                System.out.println("cura");
+                if (a == 0) {
+                    a = 2;
+                }
+                if(vidasPersonagens[a - 1][0] <10){
+                vidasPersonagens[a - 1][0] += 4 * atributosPersonagens[player - 1][2];
+                }
+                break;
+            case 5:
+                System.out.println("1 - ataque na vida \n ou \n 2- cura");
+                choose = teclado.nextInt();
+                if (choose == 1) {
+                    vidasPersonagens[a][0] -= 5 * atributosPersonagens[player - 1][0];
+                } else {
+                    if (a == 0) {
+                        a = 2;
+                    }
+                    if(vidasPersonagens[a - 1][0] <10){
+                    vidasPersonagens[a - 1][0] += 5 * atributosPersonagens[player - 1][2];
+                    }
+                }
+                break;
+            case 6:
+                System.out.println("1 - ataque no escudo \n ou \n 2- cura \n ou \n 3 - ataque na vida");
+                choose = teclado.nextInt();
+                if (choose == 1) {
+                    vidasPersonagens[a][1] -= 6 * atributosPersonagens[player - 1][1];
+                }
+                if (choose == 2) {
+                    if (a == 0) {
+                        a = 2;
+                        if(vidasPersonagens[a - 1][0] <10){
+                        vidasPersonagens[a - 1][0] += 6 * atributosPersonagens[player - 1][2];
+                        }
+                    } else {
+                        vidasPersonagens[a][0] -= 6 * atributosPersonagens[player - 1][0];
+                    }
                     break;
-                case 2:
-                    System.out.println("1- ataque no escudo \n ou \n 2- cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 3:
-                    System.out.println("ataque na vida");
-                    break;
-                case 4:
-                    System.out.println("cura");
-                    break;
-                case 5:
-                    System.out.println("1 - ataque na vida \n ou \n 2- cura");
-                    choose = teclado.nextInt();
-                    break;
-                case 6:
-                    System.out.println("1 - ataque no escudo \n ou \n 2- cura \n ou \n 3 - ataque na vida");
-                    choose = teclado.nextInt();
-                    break;
+
+                }
+
+        }
+    }
+
+    static void impressao(int vidasPersonagens[][]) {
+        for (int i = 0; i < vidasPersonagens.length; i++) {
+            System.out.println("Jogardor (" + (i+1) + ")");
+            System.out.println("");
+            for (int j = 0; j < vidasPersonagens.length; j++) {
+                if (j == 0) {
+                    System.out.print("Vida (" + vidasPersonagens[i][j] + ")");
+                } else {
+                    System.out.print("  Esculdo (" + vidasPersonagens[i][j] + ")");
+                    System.out.println("");
+                }
             }
+            System.out.println(" ");
         }
     }
 
