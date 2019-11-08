@@ -36,9 +36,10 @@ public class FireHunter {
         Scanner teclado = new Scanner(System.in);
         Random dado = new Random();
         int p1, p2, d1, d2;
-        String personagem1 = "mago", personagem2 = "cavaleiro",
-                personagem3 = "ranger", personagem4 = "druida";
-
+        String e;
+        System.out.println("escolha quem será o p1 e quem será o p2 \ndigite (0) "
+                + "para girar os dois dados e ver que irá iniciar a batalha ");
+        e = teclado.next();
         do {
             d1 = dado.nextInt(6) + 1;
 
@@ -115,41 +116,63 @@ public class FireHunter {
     }
 
     static void Batalha(int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
-        int opcaoP1, opcaoP2, choose;
+        int opcaoP1, opcaoP2, choose, jogarDado;
         Random dadoLuta = new Random();
         int ecolha1, escolha2;
-
+        do{
         if (d1 > d2) {
-            do {
+                do{
+                System.out.println("digite (0) e de enter para girar o dado P1");
+                
+                jogarDado = teclado.nextInt();
+                }while(jogarDado != 0 );
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("dado player 1: " + opcaoP1);
                 int a = 1;
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
 
                 impressao(vidasPersonagens);
-
+                
+                do{
+                System.out.println("digite (0) e de enter para girar o dado P2");
+                
+                jogarDado = teclado.nextInt();
+                }while(jogarDado != 0 );
+                
                 opcaoP2 = dadoLuta.nextInt(6) + 1;
                 System.out.println("dado player 2: " + opcaoP2);
                 a = 0;
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-             } while ((!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)) || (!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)));
+            
 
         } else {
-            do {
+                
+                do{
+                System.out.println("digite (0) e de enter para girar o dado P2");
+                
+                jogarDado = teclado.nextInt();
+                }while(jogarDado != 0 );
+                
                 opcaoP2 = dadoLuta.nextInt(6) + 1;
-                System.out.println("dado player 1: " + opcaoP2);
+                System.out.println("dado player 2: " + opcaoP2);
                 int a = 0;
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-
+                
+                do{
+                System.out.println("digite (0) e de enter para girar o dado P1");
+                
+                jogarDado = teclado.nextInt();
+                }while(jogarDado != 0 );
+                
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("dado player 1: " + opcaoP1);
                 a = 1;
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-            } while ((!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)) || (!(vidasPersonagens[1][0] <= 0) && !(vidasPersonagens[1][1] <= 0)));
-        }
+            } 
+        }while (((vidasPersonagens[0][0] > 0) && (vidasPersonagens[0][1] > 0)) || ((vidasPersonagens[1][0] > 0) && !(vidasPersonagens[1][1] <= 0)));
         impressao(vidasPersonagens);
     }
 
@@ -173,20 +196,23 @@ public class FireHunter {
                 System.out.println("1- ataque no escudo \n ou \n 2- cura");
                 choose = teclado.nextInt();
                 if (choose == 1) {
-                    vidasPersonagens[a][1] -= 2 * atributosPersonagens[player - 1][1];
+                    vidasPersonagens[a][1] -= 2 + atributosPersonagens[player - 1][1];
                 } else {
                     if (a == 0) {
                         a = 2;
                     }
                     if(vidasPersonagens[a - 1][0] <10){
-                    vidasPersonagens[a - 1][0] += 2 * atributosPersonagens[player - 1][2];
+                    vidasPersonagens[a - 1][0] += 2 + atributosPersonagens[player - 1][2];
                     }
 
                 }
                 break;
             case 3:
-                System.out.println("ataque na vida");
-                vidasPersonagens[a][0] -= 3 * atributosPersonagens[player - 1][0];
+                System.out.println("1 - ataque na vida");
+                choose = teclado.nextInt();
+                if(choose == 1){
+                vidasPersonagens[a][0] -= 3 + atributosPersonagens[player - 1][0];
+                }
                 break;
             case 4:
                 System.out.println("cura");
@@ -194,20 +220,20 @@ public class FireHunter {
                     a = 2;
                 }
                 if(vidasPersonagens[a - 1][0] <10){
-                vidasPersonagens[a - 1][0] += 4 * atributosPersonagens[player - 1][2];
+                vidasPersonagens[a - 1][0] += 4 + atributosPersonagens[player - 1][2];
                 }
                 break;
             case 5:
                 System.out.println("1 - ataque na vida \n ou \n 2- cura");
                 choose = teclado.nextInt();
                 if (choose == 1) {
-                    vidasPersonagens[a][0] -= 5 * atributosPersonagens[player - 1][0];
+                    vidasPersonagens[a][0] -= 5 + atributosPersonagens[player - 1][0];
                 } else {
                     if (a == 0) {
                         a = 2;
                     }
                     if(vidasPersonagens[a - 1][0] <10){
-                    vidasPersonagens[a - 1][0] += 5 * atributosPersonagens[player - 1][2];
+                    vidasPersonagens[a - 1][0] += 5 + atributosPersonagens[player - 1][2];
                     }
                 }
                 break;
@@ -215,16 +241,16 @@ public class FireHunter {
                 System.out.println("1 - ataque no escudo \n ou \n 2- cura \n ou \n 3 - ataque na vida");
                 choose = teclado.nextInt();
                 if (choose == 1) {
-                    vidasPersonagens[a][1] -= 6 * atributosPersonagens[player - 1][1];
+                    vidasPersonagens[a][1] -= 6 + atributosPersonagens[player - 1][1];
                 }
                 if (choose == 2) {
                     if (a == 0) {
                         a = 2;
                         if(vidasPersonagens[a - 1][0] <10){
-                        vidasPersonagens[a - 1][0] += 6 * atributosPersonagens[player - 1][2];
+                        vidasPersonagens[a - 1][0] += 6 + atributosPersonagens[player - 1][2];
                         }
                     } else {
-                        vidasPersonagens[a][0] -= 6 * atributosPersonagens[player - 1][0];
+                        vidasPersonagens[a][0] -= 6 + atributosPersonagens[player - 1][0];
                     }
                     break;
 
