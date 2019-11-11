@@ -147,7 +147,7 @@ public class FireHunter {
         int opcaoP1, opcaoP2, choose, jogarDado;
         Random dadoLuta = new Random();
         int ecolha1, escolha2;
-        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || !(vidasPersonagens[1][1] <= 0))){
+        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] <= 0))){
         impressao(vidasPersonagens);
         if (d1 > d2) {
                 do{
