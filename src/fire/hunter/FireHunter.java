@@ -63,7 +63,7 @@ public class FireHunter {
         System.out.println("Dado " +nomeP1 +": " + d1 + " Dado " +nomeP2+": " +d2);
         
         /*Cria os atributos de cada personagem. Linha e condizente a cada personagem. 
-        Sendo sua sequencia: (Mago, cavaleiro, ranger, druida).
+        Sendo sua sequencia: (Mago, Templario, Ranger, Druida).
         Coluna sao os seus atributos. (Vida, esculdo e cura).
          */
         int atributosPersonagens[][] = {{5, 5, 2}, {5, 4, 3}, {4, 4, 4}, {4, 3, 5}};
@@ -133,19 +133,19 @@ public class FireHunter {
         String SEPARADOR = "====================================================";
         
         String HISTORIA_MAGO = " Homem sábio vindo das terras da Pérsia,  que com o tempo obteve domínio das forças ocultas, e por isso possui poder de ler as estrelas e manipular destinos. Sua principal arma é seu cajado mágico, com ela o Mago  lança seus poderosos feitiços contra seus inimigos.";
+        String HISTORIA_TEMPLARIO = "Cavaleiro vindo dos Templos de Salomão, fez um voto de castidade e devoção e daria a vida para proteger os seus aliados. Suas principais armas são seu escudo e sua  espada, estas são capazes de dizimar exércitos que venham em sua direção.";        
+        String HISTORIA_RANGER = "Arqueira, a mais veloz dos personagens, seu arco é sua principal arma, essa guerreira ainda conta com uma arma adicional que é a sua águia.";   
         String HISTORIA_DRUIDA = "Homem vindo das áreas da Europa pré Romana, possui alto conhecimento sobre a natureza e a filosofia, sendo essa sua principal arma.";
-        String HISTORIA_TEMPLARIO = "Cavaleiro vindo dos Templos de Salomão, fez um voto de castidade e devoção e daria a vida para proteger os seus aliados. Suas principais armas são seu escudo e sua  espada, estas são capazes de dizimar exércitos que venham em sua direção.";
-        String HISTORIA_RANGER = "Arqueira, a mais veloz dos personagens, seu arco é sua principal arma, essa guerreira ainda conta com uma arma adicional que é a sua águia.";
 
         String ESPECIALIDADES_MAGO = "ESPECIALIDADES: vida: 5 | Escudo: 5 | Cura:2";
-        String ESPECIALIDADES_DRUIDA = "ESPECIALIDADES:  vida: 4 | Escudo: 3 | Cura:5";
         String ESPECIALIDADES_TEMPLARIO = "ESPECIALIDADES: vida: 5 | Escudo: 4 | Cura:3";
-        String ESPECIALIDADES_RANGER = "ESPECIALIDADES: vida: 4 | Escudo: 4 | Cura:4";
+        String ESPECIALIDADES_RANGER = "ESPECIALIDADES: vida: 4 | Escudo: 4 | Cura:4";        
+        String ESPECIALIDADES_DRUIDA = "ESPECIALIDADES:  vida: 4 | Escudo: 3 | Cura:5";
 
         String PONTOS_MAGO = "PONTO FORTE: diversidade nos tipos de ataque  à escudos e vidas | PONTO FRACO: poder de cura baixo.";
-        String PONTOS_DRUIDA = "PONTO FORTE:Poder de Cura ";
         String PONTOS_TEMPLARIO = "PONTO FORTE: Ataque à vida | PONTO FRACO: Poder de Cura ";
         String PONTOS_RANGER = "PONTO FORTE:Equilibrio na quantidade de ataques | PONTO FRACO: Menos força em seus ataques. ";
+        String PONTOS_DRUIDA = "PONTO FORTE:Poder de Cura ";
         
         System.out.println(SEPARADOR);
         System.out.println("1:MAGO");
@@ -154,22 +154,23 @@ public class FireHunter {
         System.out.println(PONTOS_MAGO);
         System.out.println(SEPARADOR);
 
-        System.out.println("2:DRUIDA");
-        System.out.println(HISTORIA_DRUIDA);
-        System.out.println(ESPECIALIDADES_DRUIDA);
-        System.out.println(PONTOS_DRUIDA);
-        System.out.println(SEPARADOR);
-
-        System.out.println("3:TEMPLÁRIO:");
+        System.out.println("2:TEMPLÁRIO:");
         System.out.println(HISTORIA_TEMPLARIO);
         System.out.println(ESPECIALIDADES_TEMPLARIO);
         System.out.println(PONTOS_TEMPLARIO);
         System.out.println(SEPARADOR);
-
-        System.out.println("4: RANGER:");
+        
+        System.out.println("3: RANGER:");
         System.out.println(HISTORIA_RANGER);
         System.out.println(ESPECIALIDADES_RANGER);
         System.out.println(PONTOS_RANGER);
+        System.out.println(SEPARADOR);
+        
+        
+        System.out.println("4:DRUIDA");
+        System.out.println(HISTORIA_DRUIDA);
+        System.out.println(ESPECIALIDADES_DRUIDA);
+        System.out.println(PONTOS_DRUIDA);
         System.out.println(SEPARADOR);
 
     }
@@ -186,28 +187,28 @@ public class FireHunter {
                 System.out.println("TEMPLÁRIO");
                 break;
             case 3:
-                System.out.println("DRUIDA");
+                System.out.println("RANGER");
                 break;
             case 4:
-                System.out.println("RANGER");
+                System.out.println("DRUIDA");
                 break;
             default:
                 break;
         }
         
-        System.out.println(" VS ");
+        System.out.println("VS");
         switch (p2) {
             case 1:
                 System.out.println("MAGO");
                 break;
             case 2:
-                System.out.println("TEMPÁRIO");
+                System.out.println("TEMPLÁRIO");
                 break;
             case 3:
-                System.out.println("DRUIDA");
+                System.out.println("RANGER");
                 break;
             case 4:
-                System.out.println("RANGER");
+                System.out.println("DRUIDA");
                 break;
             default:
                 break;
