@@ -28,32 +28,40 @@ public class FireHunter {
         System.out.println("  1 - INICIAR    ");
         System.out.println("  2 - INSTRUÇÕES ");
         System.out.println("  3 - SAIR       ");
-         System.out.println("=================");
+        System.out.println("=================");
         escolha = teclado.nextInt();
 
         return escolha;
     }
 
     static void iniciar() {
+        String SEPARADOR = "====================================================";
+
         Scanner teclado = new Scanner(System.in);
+        Scanner tecladoString = new Scanner(System.in);
         Random dado = new Random();
         int p1, p2, d1, d2;
         String e;
-        System.out.println("====================================================");
-        System.out.println("Escolha quem será o p1 e quem será o p2. \ndigite (0) "
-                + "para girar os dois dados e ver quem irá iniciar a batalha. ");
+        String nomeP1;
+        String nomeP2;
+        System.out.println("Digite o nome do jogador1: ");
+        nomeP1= teclado.nextLine();
+        System.out.println("Digite o nome do jogador2: ");
+        nomeP2=teclado.nextLine();
+        System.out.println(SEPARADOR);
+        System.out.println("Digite (0) para girar os dois dados e ver quem irá iniciar a batalha. ");
         System.out.println("");
-        System.out.println("====================================================");
+        System.out.println(SEPARADOR);
         e = teclado.next();
-        
+
         do {
             d1 = dado.nextInt(6) + 1;
 
             d2 = dado.nextInt(6) + 1;
         } while (d1 == d2);
-        System.out.println("====================================================");
-        System.out.println("dado p1 : " + d1 + " dado p2: " + d2);
-        System.out.println("====================================================");
+        System.out.println(SEPARADOR);
+        System.out.println("Dado " +nomeP1 +": " + d1 + " Dado " +nomeP2+": " +d2);
+        
         /*Cria os atributos de cada personagem. Linha e condizente a cada personagem. 
         Sendo sua sequencia: (Mago, cavaleiro, ranger, druida).
         Coluna sao os seus atributos. (Vida, esculdo e cura).
@@ -61,7 +69,7 @@ public class FireHunter {
         int atributosPersonagens[][] = {{5, 5, 2}, {5, 4, 3}, {4, 4, 4}, {4, 3, 5}};
 
         /*
-        Cria a vida e esculdo de cada jogador.
+        Cria a vida e escudo de cada jogador.
         Linha e o player.
         coluna e a vida e esculdo.
          */
@@ -70,151 +78,214 @@ public class FireHunter {
         //contador personagem
         int contadorPersonagem = 0;
         if (d1 > d2) {
+            //DADO COM O NUMERO MAIOR PARA JOGADOR 1
 
-            
-            System.out.println("p1 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+            System.out.println(SEPARADOR);
+            System.out.println(nomeP1+ " Venceu!");
+            System.out.println(nomeP1 +" escolha seu personagem: ");
+            listaPersonagens();
             p1 = teclado.nextInt();
-            System.out.println("====================================================");
-            System.out.println("p2 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+
+            System.out.println(SEPARADOR);
+            System.out.println(nomeP2+ " escolha seu personagem: ");
+            listaPersonagens();
             p2 = teclado.nextInt();
-            System.out.println("====================================================");
-            while(p1 == p2){
-                System.out.println("====================================================");
-                System.out.println("p2, escolha outro personagem");
-                System.out.println("1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+
+            //SE O PERSONAGEM FO JOGADOR 1 FOR IGUAL AO JOGADOR 2
+            while (p1 == p2) {
+                System.out.println(SEPARADOR);
+                System.out.println(" O personagem já foi escolhido "+ nomeP2+ " escolha outro personagem: ");
+                listaPersonagens();
+
                 p2 = teclado.nextInt();
-                System.out.println("====================================================");
+
             }
         } else {
-           
-            System.out.println("p2 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+
+            System.out.println(SEPARADOR);
+            System.out.println(nomeP2+ " Venceu!");
+            System.out.println(nomeP2+ " escolha seu personagem: ");
+            listaPersonagens();
+
             p2 = teclado.nextInt();
-            System.out.println("====================================================");
-            System.out.println("p1 escolha seu personagem:\n 1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+
+            System.out.println(SEPARADOR);
+            System.out.println(nomeP1+ " escolha seu personagem:");
+            listaPersonagens();
+
             p1 = teclado.nextInt();
-            System.out.println("====================================================");
-            while(p1 == p2){
-                System.out.println("====================================================");
-                System.out.println("p1, escolha outro personagem");
-                System.out.println("1:mago\n 2: caveleiro\n 3: druida\n 4: ranger");
+            System.out.println(SEPARADOR);
+
+            while (p1 == p2) {
+                System.out.println(SEPARADOR);
+                System.out.println("O Personagem já foi escolhido,"+nomeP1+ " escolha outro personagem");
+                listaPersonagens();
+
                 p1 = teclado.nextInt();
-                System.out.println("====================================================");
+                System.out.println(SEPARADOR);
             }
         }
         escolhasjogador(p1, p2);
-        Batalha(p1, p2, d1, d2, atributosPersonagens, vidasPersonagens);
+        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens);
+    }
+
+    static void listaPersonagens() {
+        String SEPARADOR = "====================================================";
+        
+        String HISTORIA_MAGO = " Homem sábio vindo das terras da Pérsia,  que com o tempo obteve domínio das forças ocultas, e por isso possui poder de ler as estrelas e manipular destinos. Sua principal arma é seu cajado mágico, com ela o Mago  lança seus poderosos feitiços contra seus inimigos.";
+        String HISTORIA_DRUIDA = "Homem vindo das áreas da Europa pré Romana, possui alto conhecimento sobre a natureza e a filosofia, sendo essa sua principal arma.";
+        String HISTORIA_TEMPLARIO = "Cavaleiro vindo dos Templos de Salomão, fez um voto de castidade e devoção e daria a vida para proteger os seus aliados. Suas principais armas são seu escudo e sua  espada, estas são capazes de dizimar exércitos que venham em sua direção.";
+        String HISTORIA_RANGER = "Arqueira, a mais veloz dos personagens, seu arco é sua principal arma, essa guerreira ainda conta com uma arma adicional que é a sua águia.";
+
+        String ESPECIALIDADES_MAGO = "ESPECIALIDADES: vida: 5 | Escudo: 5 | Cura:2";
+        String ESPECIALIDADES_DRUIDA = "ESPECIALIDADES:  vida: 4 | Escudo: 3 | Cura:5";
+        String ESPECIALIDADES_TEMPLARIO = "ESPECIALIDADES: vida: 5 | Escudo: 4 | Cura:3";
+        String ESPECIALIDADES_RANGER = "ESPECIALIDADES: vida: 4 | Escudo: 4 | Cura:4";
+
+        String PONTOS_MAGO = "PONTO FORTE: diversidade nos tipos de ataque  à escudos e vidas | PONTO FRACO: poder de cura baixo.";
+        String PONTOS_DRUIDA = "PONTO FORTE:Poder de Cura ";
+        String PONTOS_TEMPLARIO = "PONTO FORTE: Ataque à vida | PONTO FRACO: Poder de Cura ";
+        String PONTOS_RANGER = "PONTO FORTE:Equilibrio na quantidade de ataques | PONTO FRACO: Menos força em seus ataques. ";
+        
+        System.out.println(SEPARADOR);
+        System.out.println("1:MAGO");
+        System.out.println(HISTORIA_MAGO);
+        System.out.println(ESPECIALIDADES_MAGO);
+        System.out.println(PONTOS_MAGO);
+        System.out.println(SEPARADOR);
+
+        System.out.println("2:DRUIDA");
+        System.out.println(HISTORIA_DRUIDA);
+        System.out.println(ESPECIALIDADES_DRUIDA);
+        System.out.println(PONTOS_DRUIDA);
+        System.out.println(SEPARADOR);
+
+        System.out.println("3:TEMPLÁRIO:");
+        System.out.println(HISTORIA_TEMPLARIO);
+        System.out.println(ESPECIALIDADES_TEMPLARIO);
+        System.out.println(PONTOS_TEMPLARIO);
+        System.out.println(SEPARADOR);
+
+        System.out.println("4: RANGER:");
+        System.out.println(HISTORIA_RANGER);
+        System.out.println(ESPECIALIDADES_RANGER);
+        System.out.println(PONTOS_RANGER);
+        System.out.println(SEPARADOR);
+
     }
 
     static void escolhasjogador(int p1, int p2) {
+        String SEPARADOR = "====================================================";
+        System.out.println("A batalha será: ");
         switch (p1) {
             case 1:
-                System.out.println("mago");
+                System.out.println("MAGO");
 
                 break;
             case 2:
-                System.out.println("cavaleiro");
+                System.out.println("TEMPLÁRIO");
                 break;
             case 3:
-                System.out.println("druida");
+                System.out.println("DRUIDA");
                 break;
             case 4:
-                System.out.println("ranger");
+                System.out.println("RANGER");
                 break;
             default:
                 break;
         }
-        System.out.println("VS");
+        
+        System.out.println(" VS ");
         switch (p2) {
             case 1:
-                System.out.println("mago");
+                System.out.println("MAGO");
                 break;
             case 2:
-                System.out.println("cavaleiro");
+                System.out.println("TEMPÁRIO");
                 break;
             case 3:
-                System.out.println("druida");
+                System.out.println("DRUIDA");
                 break;
             case 4:
-                System.out.println("ranger");
+                System.out.println("RANGER");
                 break;
             default:
                 break;
         }
-        System.out.println("====================================================");
+        System.out.println(SEPARADOR);
     }
 
-    static void Batalha(int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
+    static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
         int opcaoP1, opcaoP2, choose, jogarDado;
         Random dadoLuta = new Random();
         int ecolha1, escolha2;
-        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] <= 0))){
-        impressao(vidasPersonagens);
-        if (d1 > d2) {
-                do{
-                
-                System.out.println("digite (0) e de enter para girar o dado P1");
-                
-                jogarDado = teclado.nextInt();
-                
-                }while(jogarDado != 0 );
+        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] <= 0))) {
+            impressao(vidasPersonagens);
+            if (d1 > d2) {
+                do {
+
+                    System.out.println("Digite (0) e aperte enter para girar o dado "+nomeP1);
+
+                    jogarDado = teclado.nextInt();
+
+                } while (jogarDado != 0);
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
-                System.out.println("dado player 1: " + opcaoP1);
-                
+                System.out.println("Dado "+nomeP1+": " + opcaoP1);
+
                 int a = 1;
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
 
                 impressao(vidasPersonagens);
-                
-                do{
-                System.out.println("digite (0) e de enter para girar o dado P2");
-                
-                jogarDado = teclado.nextInt();
-                
-                }while(jogarDado != 0 );
-                
+
+                do {
+                    System.out.println("Digite (0) e aperte enter para girar o dado "+nomeP2);
+
+                    jogarDado = teclado.nextInt();
+
+                } while (jogarDado != 0);
+
                 opcaoP2 = dadoLuta.nextInt(6) + 1;
-                
-                System.out.println("dado player 2: " + opcaoP2);
-                
+
+                System.out.println("Dado "+nomeP2+ ": " + opcaoP2);
+
                 a = 0;
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-            
 
-        } else {
-                
-                do{
-                
-                System.out.println("digite (0) e de enter para girar o dado P2");
-                
-                jogarDado = teclado.nextInt();
-                
-                }while(jogarDado != 0 );
-                
+            } else {
+
+                do {
+
+                    System.out.println("Digite (0) e aperte enter para girar o dado"+nomeP2);
+
+                    jogarDado = teclado.nextInt();
+
+                } while (jogarDado != 0);
+
                 opcaoP2 = dadoLuta.nextInt(6) + 1;
-                
-                System.out.println("dado player 2: " + opcaoP2);
-                
+
+                System.out.println("Dado "+nomeP2+": " + opcaoP2);
+
                 int a = 0;
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-                
-                do{
-               
-                System.out.println("digite (0) e de enter para girar o dado P1");
-                
-                jogarDado = teclado.nextInt();
-                
-                }while(jogarDado != 0 );
-                
+
+                do {
+
+                    System.out.println("Digite (0) e aperte enter para girar o dado"+nomeP1);
+
+                    jogarDado = teclado.nextInt();
+
+                } while (jogarDado != 0);
+
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
-                
-                System.out.println("dado player 1: " + opcaoP1);
-                
+
+                System.out.println("Dado"+nomeP1+": " + opcaoP1);
+
                 a = 1;
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
                 impressao(vidasPersonagens);
-            } 
+            }
         }
     }
 
@@ -223,10 +294,10 @@ public class FireHunter {
         switch (opcao) {
 
             case 1:
-                
-                System.out.println("1 - ataque no escudo \n ou \n 2- ataque na vida");
+
+                System.out.println("1 - Ataque no escudo \n ou \n 2- ataque na vida");
                 choose = teclado.nextInt();
-                
+
                 if (choose == 1) {
 
                     vidasPersonagens[a][1] -= atributosPersonagens[player - 1][1];
@@ -237,71 +308,71 @@ public class FireHunter {
 
                 break;
             case 2:
-               
+
                 System.out.println("1- ataque no escudo \n ou \n 2- cura");
                 choose = teclado.nextInt();
-                
+
                 if (choose == 1) {
                     vidasPersonagens[a][1] -= 2 + atributosPersonagens[player - 1][1];
                 } else {
                     if (a == 0) {
                         a = 2;
                     }
-                    if(vidasPersonagens[a - 1][0] <10){
-                    vidasPersonagens[a - 1][0] += 2 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[a - 1][0] < 10) {
+                        vidasPersonagens[a - 1][0] += 2 + atributosPersonagens[player - 1][2];
                     }
 
                 }
                 break;
             case 3:
-               
+
                 System.out.println("1 - ataque na vida");
                 choose = teclado.nextInt();
-                
-                if(choose == 1){
-                vidasPersonagens[a][0] -= 3 + atributosPersonagens[player - 1][0];
+
+                if (choose == 1) {
+                    vidasPersonagens[a][0] -= 3 + atributosPersonagens[player - 1][0];
                 }
                 break;
             case 4:
-                
+
                 System.out.println("cura");
-              
+
                 if (a == 0) {
                     a = 2;
                 }
-                if(vidasPersonagens[a - 1][0] <10){
-                vidasPersonagens[a - 1][0] += 4 + atributosPersonagens[player - 1][2];
+                if (vidasPersonagens[a - 1][0] < 10) {
+                    vidasPersonagens[a - 1][0] += 4 + atributosPersonagens[player - 1][2];
                 }
                 break;
             case 5:
-                
+
                 System.out.println("1 - ataque na vida \n ou \n 2- cura");
                 choose = teclado.nextInt();
-                
+
                 if (choose == 1) {
                     vidasPersonagens[a][0] -= 5 + atributosPersonagens[player - 1][0];
                 } else {
                     if (a == 0) {
                         a = 2;
                     }
-                    if(vidasPersonagens[a - 1][0] <10){
-                    vidasPersonagens[a - 1][0] += 5 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[a - 1][0] < 10) {
+                        vidasPersonagens[a - 1][0] += 5 + atributosPersonagens[player - 1][2];
                     }
                 }
                 break;
             case 6:
-                
+
                 System.out.println("1 - ataque no escudo \n ou \n 2- cura \n ou \n 3 - ataque na vida");
                 choose = teclado.nextInt();
-                
+
                 if (choose == 1) {
                     vidasPersonagens[a][1] -= 6 + atributosPersonagens[player - 1][1];
                 }
                 if (choose == 2) {
                     if (a == 0) {
                         a = 2;
-                        if(vidasPersonagens[a - 1][0] <10){
-                        vidasPersonagens[a - 1][0] += 6 + atributosPersonagens[player - 1][2];
+                        if (vidasPersonagens[a - 1][0] < 10) {
+                            vidasPersonagens[a - 1][0] += 6 + atributosPersonagens[player - 1][2];
                         }
                     } else {
                         vidasPersonagens[a][0] -= 6 + atributosPersonagens[player - 1][0];
@@ -314,18 +385,19 @@ public class FireHunter {
     }
 
     static void impressao(int vidasPersonagens[][]) {
+        String SEPARADOR = "====================================================";
         for (int i = 0; i < vidasPersonagens.length; i++) {
-            
-            System.out.println("Jogardor (" + (i+1) + ")");
-            
+
+            System.out.println("Jogardor (" + (i + 1) + ")");
+
             for (int j = 0; j < vidasPersonagens.length; j++) {
                 if (j == 0) {
                     System.out.println("Vida (" + vidasPersonagens[i][j] + ")");
-      
+
                 } else {
-                    
+
                     System.out.println("Escudo (" + vidasPersonagens[i][j] + ")");
-                    System.out.println("====================================================");
+                    System.out.println(SEPARADOR);
                 }
             }
         }
