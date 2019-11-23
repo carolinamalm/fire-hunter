@@ -58,6 +58,7 @@ public class FireHunter {
             d1 = dado.nextInt(6) + 1;
 
             d2 = dado.nextInt(6) + 1;
+
         } while (d1 == d2);
         System.out.println(SEPARADOR);
         System.out.println("Dado " + nomeP1 + ": " + d1 + " Dado " + nomeP2 + ": " + d2);
@@ -88,7 +89,7 @@ public class FireHunter {
             //DADO COM O NUMERO MAIOR PARA JOGADOR 1
 
             System.out.println(SEPARADOR);
-            System.out.println("Jogador 1: " +nomeP1 + " Venceu!");
+            System.out.println("Jogador 1: " + nomeP1 + " Venceu!");
             System.out.println(nomeP1 + " escolha seu personagem: ");
             listaPersonagens();
             p1 = teclado.nextInt();
@@ -223,10 +224,10 @@ public class FireHunter {
     }
 
     static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
-        int opcaoP1, opcaoP2, choose, jogarDado;
+        int opcaoP1, opcaoP2, choose, jogador1 = 1, jogador2 = 0, jogarDado;
         Random dadoLuta = new Random();
         int ecolha1, escolha2;
-        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] <= 0))) {
+        while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] > 0))) {
             impressao(vidasPersonagens);
             if (d1 > d2) {
                 do {
@@ -239,8 +240,7 @@ public class FireHunter {
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("Dado " + nomeP1 + ": " + opcaoP1);
 
-                int a = 1;
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1);
 
                 impressao(vidasPersonagens);
 
@@ -255,8 +255,7 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
-                a = 0;
-                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador2);
                 impressao(vidasPersonagens);
 
             } else {
@@ -273,8 +272,7 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
-                int a = 0;
-                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, a);
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1);
                 impressao(vidasPersonagens);
 
                 do {
@@ -289,14 +287,13 @@ public class FireHunter {
 
                 System.out.println("Dado" + nomeP1 + ": " + opcaoP1);
 
-                a = 1;
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, a);
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2);
                 impressao(vidasPersonagens);
             }
         }
     }
 
-    static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int a) {
+    static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador) {
         int choose;
         switch (opcao) {
 
@@ -308,10 +305,16 @@ public class FireHunter {
 
                 if (choose == 1) {
 
-                    vidasPersonagens[a][1] -= atributosPersonagens[player - 1][1];
+                    vidasPersonagens[jogador][1] -= atributosPersonagens[player - 1][1];
+                    if (vidasPersonagens[jogador][1] < 0) {
+                        vidasPersonagens[jogador][1] = 0;
+                    }
                 } else {
 
-                    vidasPersonagens[a][0] -= atributosPersonagens[player - 1][0];
+                    vidasPersonagens[jogador][0] -= atributosPersonagens[player - 1][0];
+                    if (vidasPersonagens[jogador][0] < 0) {
+                        vidasPersonagens[jogador][0] = 0;
+                    }
                 }
 
                 break;
@@ -323,39 +326,55 @@ public class FireHunter {
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
-                    vidasPersonagens[a][1] -= 2 + atributosPersonagens[player - 1][1];
-                } else {
-                    if (a == 0) {
-                        a = 2;
+                    vidasPersonagens[jogador][1] -= 2 + atributosPersonagens[player - 1][1];
+                    if (vidasPersonagens[jogador][1] < 0) {
+                        vidasPersonagens[jogador][1] = 0;
                     }
-                    if (vidasPersonagens[a - 1][0] < 10) {
-                        vidasPersonagens[a - 1][0] += 2 + atributosPersonagens[player - 1][2];
+                } else {
+                    //Fazer inverter a logica. Que antes era de decrementar na vida do outro personagem.
+                    if (jogador == 1) {
+                        jogador = 0;
+                    } else {
+                        jogador = 1;
+                    }
+                    vidasPersonagens[jogador][0] += 2 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[jogador][0] > 10) {
+                        vidasPersonagens[jogador][0] = 10;
                     }
 
                 }
                 break;
+
             case 3:
 
                 System.out.println("1 - ataque na vida (" + (atributosPersonagens[player - 1][0] + opcao) + ")");
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
-                    vidasPersonagens[a][0] -= 3 + atributosPersonagens[player - 1][0];
+                    vidasPersonagens[jogador][0] -= 3 + atributosPersonagens[player - 1][0];
+                    if (vidasPersonagens[jogador][0] < 0) {
+                        vidasPersonagens[jogador][0] = 0;
+                    }
                 }
                 break;
             case 4:
 
                 System.out.println("1 - cura (" + (atributosPersonagens[player - 1][2] + opcao) + ")");
                 choose = teclado.nextInt();
-                if (a == 0) {
-                    a = 2;
-                }
                 if (choose == 1) {
-                    if (vidasPersonagens[a - 1][0] < 10) {
-                        vidasPersonagens[a - 1][0] += 4 + atributosPersonagens[player - 1][2];
+                    //Fazer inverter a logica. Que antes era de decrementar na vida do outro personagem.
+                    if (jogador == 1) {
+                        jogador = 0;
+                    } else {
+                        jogador = 1;
+                    }
+                    vidasPersonagens[jogador][0] += 4 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[jogador][0] > 10) {
+                        vidasPersonagens[jogador][0] = 10;
                     }
                 }
                 break;
+
             case 5:
 
                 System.out.println("1 - ataque na vida (" + (atributosPersonagens[player - 1][0] + opcao)
@@ -363,16 +382,24 @@ public class FireHunter {
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
-                    vidasPersonagens[a][0] -= 5 + atributosPersonagens[player - 1][0];
-                } else {
-                    if (a == 0) {
-                        a = 2;
+                    vidasPersonagens[jogador][0] -= 5 + atributosPersonagens[player - 1][0];
+                    if (vidasPersonagens[jogador][0] < 0) {
+                        vidasPersonagens[jogador][0] = 0;
                     }
-                    if (vidasPersonagens[a - 1][0] < 10) {
-                        vidasPersonagens[a - 1][0] += 5 + atributosPersonagens[player - 1][2];
+                } else {
+                    //Fazer inverter a logica. Que antes era de decrementar na vida do outro personagem.
+                    if (jogador == 1) {
+                        jogador = 0;
+                    } else {
+                        jogador = 1;
+                    }
+                    vidasPersonagens[jogador][0] += 5 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[jogador][0] > 10) {
+                        vidasPersonagens[jogador][0] = 10;
                     }
                 }
                 break;
+
             case 6:
 
                 System.out.println("1 - ataque no escudo (" + (atributosPersonagens[player - 1][1] + opcao)
@@ -381,22 +408,32 @@ public class FireHunter {
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
-                    vidasPersonagens[a][1] -= 6 + atributosPersonagens[player - 1][1];
-                }
-                if (choose == 2) {
-                    if (a == 0) {
-                        a = 2;
-                        if (vidasPersonagens[a - 1][0] < 10) {
-                            vidasPersonagens[a - 1][0] += 6 + atributosPersonagens[player - 1][2];
-                        }
-                    } else {
-                        vidasPersonagens[a][0] -= 6 + atributosPersonagens[player - 1][0];
+                    vidasPersonagens[jogador][1] -= 6 + atributosPersonagens[player - 1][1];
+                    if (vidasPersonagens[jogador][1] < 0) {
+                        vidasPersonagens[jogador][1] = 0;
                     }
-                    break;
+                } else if (choose == 2) {
+                    //Fazer inverter a logica. Que antes era de decrementar na vida do outro personagem.
+                    if (jogador == 1) {
+                        jogador = 0;
+                    } else {
+                        jogador = 1;
+                    }
+                    vidasPersonagens[jogador][0] += 6 + atributosPersonagens[player - 1][2];
+                    if (vidasPersonagens[jogador][0] > 10) {
+                        vidasPersonagens[jogador][0] = 10;
+                    }
 
+                } else {
+                    vidasPersonagens[jogador][0] -= 6 + atributosPersonagens[player - 1][0];
+                    if (vidasPersonagens[jogador][0] < 0) {
+                        vidasPersonagens[jogador][0] = 0;
+                    }
                 }
+                break;
 
         }
+
     }
 
     static void impressao(int vidasPersonagens[][]) {
