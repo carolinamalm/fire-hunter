@@ -50,8 +50,6 @@ public class FireHunter {
         nomeP2 = teclado.nextLine();
         System.out.println(SEPARADOR);
         System.out.println("Digite (0) para girar os dois dados e ver quem irá iniciar a batalha. ");
-        System.out.println("");
-        System.out.println(SEPARADOR);
         e = teclado.next();
 
         do {
@@ -83,7 +81,8 @@ public class FireHunter {
             {10, 10},
             {10, 10}
         };
-
+        // Passa para função ação o tamanho maximo da vida.
+        int vida = vidasPersonagens[0][0];
         //contador personagem 
         if (d1 > d2) {
             //DADO COM O NUMERO MAIOR PARA JOGADOR 1
@@ -134,13 +133,13 @@ public class FireHunter {
             }
         }
         escolhasjogador(p1, p2);
-        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens);
+        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida);
     }
 
     static void listaPersonagens() {
         String SEPARADOR = "====================================================";
 
-        String HISTORIA_MAGO = " Homem sábio vindo das terras da Pérsia,  que com o tempo obteve domínio das forças ocultas, e por isso possui poder de ler as estrelas e manipular destinos. Sua principal arma é seu cajado mágico, com ela o Mago  lança seus poderosos feitiços contra seus inimigos.";
+        String HISTORIA_MAGO = "Homem sábio vindo das terras da Pérsia,  que com o tempo obteve domínio das forças ocultas, e por isso possui poder de ler as estrelas e manipular destinos. Sua principal arma é seu cajado mágico, com ela o Mago  lança seus poderosos feitiços contra seus inimigos.";
         String HISTORIA_TEMPLARIO = "Cavaleiro vindo dos Templos de Salomão, fez um voto de castidade e devoção e daria a vida para proteger os seus aliados. Suas principais armas são seu escudo e sua  espada, estas são capazes de dizimar exércitos que venham em sua direção.";
         String HISTORIA_RANGER = "Arqueira, a mais veloz dos personagens, seu arco é sua principal arma, essa guerreira ainda conta com uma arma adicional que é a sua águia.";
         String HISTORIA_DRUIDA = "Homem vindo das áreas da Europa pré Romana, possui alto conhecimento sobre a natureza e a filosofia, sendo essa sua principal arma.";
@@ -168,7 +167,7 @@ public class FireHunter {
         System.out.println(PONTOS_TEMPLARIO);
         System.out.println(SEPARADOR);
 
-        System.out.println("3: RANGER:");
+        System.out.println("3:RANGER:");
         System.out.println(HISTORIA_RANGER);
         System.out.println(ESPECIALIDADES_RANGER);
         System.out.println(PONTOS_RANGER);
@@ -203,7 +202,7 @@ public class FireHunter {
                 break;
         }
 
-        System.out.println("VS");
+        System.out.println("  VS");
         switch (p2) {
             case 1:
                 System.out.println("MAGO");
@@ -223,12 +222,12 @@ public class FireHunter {
         System.out.println(SEPARADOR);
     }
 
-    static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][]) {
+    static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][], int vida) {
         int opcaoP1, opcaoP2, choose, jogador1 = 1, jogador2 = 0, jogarDado;
         Random dadoLuta = new Random();
-        int ecolha1, escolha2;
+        impressao(vidasPersonagens);
         while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] > 0))) {
-            impressao(vidasPersonagens);
+
             if (d1 > d2) {
                 do {
 
@@ -240,7 +239,7 @@ public class FireHunter {
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("Dado " + nomeP1 + ": " + opcaoP1);
 
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1);
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1,vida);
 
                 impressao(vidasPersonagens);
 
@@ -255,7 +254,7 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
-                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador2);
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador2, vida);
                 impressao(vidasPersonagens);
 
             } else {
@@ -272,7 +271,7 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
-                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1);
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1,vida);
                 impressao(vidasPersonagens);
 
                 do {
@@ -287,13 +286,13 @@ public class FireHunter {
 
                 System.out.println("Dado" + nomeP1 + ": " + opcaoP1);
 
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2);
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2,vida);
                 impressao(vidasPersonagens);
             }
         }
     }
 
-    static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador) {
+    static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador, int vida) {
         int choose;
         switch (opcao) {
 
@@ -339,7 +338,7 @@ public class FireHunter {
                     }
                     vidasPersonagens[jogador][0] += 2 + atributosPersonagens[player - 1][2];
                     if (vidasPersonagens[jogador][0] > 10) {
-                        vidasPersonagens[jogador][0] = 10;
+                        vidasPersonagens[jogador][0] = vida;
                     }
 
                 }
@@ -370,7 +369,7 @@ public class FireHunter {
                     }
                     vidasPersonagens[jogador][0] += 4 + atributosPersonagens[player - 1][2];
                     if (vidasPersonagens[jogador][0] > 10) {
-                        vidasPersonagens[jogador][0] = 10;
+                        vidasPersonagens[jogador][0] = vida;
                     }
                 }
                 break;
@@ -395,7 +394,7 @@ public class FireHunter {
                     }
                     vidasPersonagens[jogador][0] += 5 + atributosPersonagens[player - 1][2];
                     if (vidasPersonagens[jogador][0] > 10) {
-                        vidasPersonagens[jogador][0] = 10;
+                        vidasPersonagens[jogador][0] = vida;
                     }
                 }
                 break;
@@ -421,7 +420,7 @@ public class FireHunter {
                     }
                     vidasPersonagens[jogador][0] += 6 + atributosPersonagens[player - 1][2];
                     if (vidasPersonagens[jogador][0] > 10) {
-                        vidasPersonagens[jogador][0] = 10;
+                        vidasPersonagens[jogador][0] = vida;
                     }
 
                 } else {
