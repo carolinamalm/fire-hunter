@@ -44,9 +44,9 @@ public class FireHunter {
         String e;
         String nomeP1;
         String nomeP2;
-        System.out.println("Digite o nome do jogador 1: ");
+        System.out.println("Digite o nome do jogador: ");
         nomeP1 = teclado.nextLine();
-        System.out.println("Digite o nome do jogador 2: ");
+        System.out.println("Digite o nome do jogador: ");
         nomeP2 = teclado.nextLine();
         System.out.println(SEPARADOR);
         System.out.println("Digite (0) para girar os dois dados e ver quem irá iniciar a batalha. ");
@@ -133,7 +133,7 @@ public class FireHunter {
             }
         }
         escolhasjogador(p1, p2);
-        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida);
+        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida, nomeP1,nomeP2);
     }
 
     static void listaPersonagens() {
@@ -222,7 +222,7 @@ public class FireHunter {
         System.out.println(SEPARADOR);
     }
 
-    static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][], int vida) {
+    static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][], int vida, String nomep1, String nomep2) {
         int opcaoP1, opcaoP2, choose, jogador1 = 1, jogador2 = 0, jogarDado;
         Random dadoLuta = new Random();
         impressao(vidasPersonagens);
@@ -239,9 +239,11 @@ public class FireHunter {
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("Dado " + nomeP1 + ": " + opcaoP1);
 
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1,vida);
-
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1, vida);
                 impressao(vidasPersonagens);
+                if (((vidasPersonagens[1][0] == 0) && (vidasPersonagens[1][1] == 0))) {
+                    break;
+                }
 
                 do {
                     System.out.println("Digite (0) e aperte enter para girar o dado " + nomeP2);
@@ -271,8 +273,11 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
-                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1,vida);
+                acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1, vida);
                 impressao(vidasPersonagens);
+                if (((vidasPersonagens[1][0] == 0) && (vidasPersonagens[1][1] == 0))) {
+                    break;
+                }
 
                 do {
 
@@ -286,10 +291,18 @@ public class FireHunter {
 
                 System.out.println("Dado" + nomeP1 + ": " + opcaoP1);
 
-                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2,vida);
+                acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2, vida);
                 impressao(vidasPersonagens);
+                
             }
         }
+        if(((vidasPersonagens[0][0] == 0) && (vidasPersonagens[0][1] == 0))){
+            System.out.println("PARABENS JOGADOR: " + nomep1);
+        }
+        else{
+            System.out.println("PARABENS JOGADOR: " + nomep2);
+        }
+        menu();
     }
 
     static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador, int vida) {
@@ -432,6 +445,7 @@ public class FireHunter {
                 break;
 
         }
+        
 
     }
 
