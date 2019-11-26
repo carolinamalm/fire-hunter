@@ -471,18 +471,35 @@ public class FireHunter {
     static void instruções() {
         Scanner teclado = new Scanner(System.in);
         int esc;
-        System.out.println("____O jogo apresentará 4 personagens______");
-        System.out.println("____os dois jogadores - usuário 1 e 2 - jogarão o dado,"
-                + "o jogador que tirar o maior número é o primeiro a escolher e inicia a partida____");
-        System.out.println("____ambos jogadores escolhem seus personagens____");
-        System.out.println("____quem tirou o número maior no dado inicia a partida____");
-        System.out.println("____cada personagem inicia com 25 de escudo e 25 de vida____");
-        System.out.println("____cada número do dado dará até 3 opções, dentre elas:"
-                + " ataque a vida, ataque a escudo e cura____");
-        System.out.println("____O personagem vencedor será o que conseguir zerar primeiro a"
-                + " vida e o escudo do adversário____");
-        System.out.println("____então o jogo apresentará o vencedor____");
-        System.out.println("*******iniciar o jogo - 1, sair - 2*******");
+       System.out.println("*********************************************** Introdução ****************************************************");
+        System.out.println("    Os dois jogadores iram jogar o dado, o jogador que tirar o maior número é o primeiro a escolher"
+                + "\n    o personagem e inicia a partida.");
+        System.out.println("    Ambos jogadores escolhem seus personagens");
+        System.out.println("    Quem tirou o número maior no dado inicia a partida.");
+        System.out.println("    Cada personagem inicia com 10 de vida e 10 de escudo.");
+        System.out.println("    Cada número do dado dará até 3 opções, dentre elas:"
+                + " ataque a vida, ataque a escudo e cura.");
+        System.out.println("    O personagem vencedor será o que conseguir zerar primeiro a"
+                + " vida e o escudo do adversário.");
+        System.out.println("    Sendo o grande vencedor da batalha.");
+        System.out.println("");
+        System.out.println("***************************************************************************************************************");
+        System.out.println("");
+        
+        System.out.println("*********************************************** Função do dado *************************************************");
+        System.out.println("    1 –  --  Ataque no escudo ou ataque na vida.");
+        System.out.println("    2 – (+2) Ataque no escudo ou cura.");
+        System.out.println("    3 – (+3) Ataque na vida.");
+        System.out.println("    4 – (+4) Cura na vida.");
+        System.out.println("    5 – (+5) Ataque na vida ou cura.");
+        System.out.println("    6 – (+6) Ataque no escudo ou ataque na vida ou cura.");
+        System.out.println("    Apartir da 2 face do dado começa a ser acrescentado o valor do dado ao dano ou cura.");
+        System.out.println("");
+        
+        System.out.println("***************************************************************************************************************");
+        System.out.println("");
+        System.out.println("    Iniciar o jogo - 1, Sair - 2.");
+        System.out.println("    Escolha um opçao:");
         esc = teclado.nextInt();
         if (esc == 1) {
             iniciar();
