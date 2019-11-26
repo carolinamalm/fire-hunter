@@ -8,16 +8,36 @@ public class FireHunter {
     static Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int escolha = menu();
+        int escolha = 0;
+        boolean sair = false;
+        while (escolha != 3 && sair != true) {
+            escolha = menu();
 
-        switch (escolha) {
-            case 1:
-                iniciar();
-                break;
-            case 2:
-                instruções();
-                break;
+            switch (escolha) {
 
+                case 1:
+                    iniciar();
+                    boolean c = false;
+                    while (!c) {
+                        System.out.println("Deseja continuar jogando? (Sim ou Não)");
+                        char continua = teclado.next().charAt(0);
+                        if ((continua == 's' || continua == 'S')) {
+                            iniciar();
+                        } else {
+                            c = !c;
+                            System.out.println("Obrigado por jogar. Até a proxima batalha.");
+                        }
+                    }
+                    sair = true;
+                    break;
+                case 2:
+                    instruções();
+                    break;
+                case 3:
+                    System.out.println("Obrigado por jogar. Até a proxima batalha.");
+                    break;
+
+            }
         }
     }
 
@@ -133,7 +153,7 @@ public class FireHunter {
             }
         }
         escolhasjogador(p1, p2);
-        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida, nomeP1,nomeP2);
+        Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida, nomeP1, nomeP2);
     }
 
     static void listaPersonagens() {
@@ -258,6 +278,8 @@ public class FireHunter {
 
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador2, vida);
                 impressao(vidasPersonagens);
+                vidasPersonagens[0][0] = 0;
+                vidasPersonagens[0][1] = 0;
 
             } else {
 
@@ -293,16 +315,15 @@ public class FireHunter {
 
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2, vida);
                 impressao(vidasPersonagens);
-                
+                vidasPersonagens[0][0] = 0;
+                vidasPersonagens[0][1] = 0;
             }
         }
-        if(((vidasPersonagens[0][0] == 0) && (vidasPersonagens[0][1] == 0))){
+        if (((vidasPersonagens[0][0] == 0) && (vidasPersonagens[0][1] == 0))) {
             System.out.println("PARABENS JOGADOR: " + nomep1);
-        }
-        else{
+        } else {
             System.out.println("PARABENS JOGADOR: " + nomep2);
         }
-        menu();
     }
 
     static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador, int vida) {
@@ -445,7 +466,6 @@ public class FireHunter {
                 break;
 
         }
-        
 
     }
 
@@ -471,7 +491,7 @@ public class FireHunter {
     static void instruções() {
         Scanner teclado = new Scanner(System.in);
         int esc;
-       System.out.println("*********************************************** Introdução ****************************************************");
+        System.out.println("*********************************************** Introdução ****************************************************");
         System.out.println("    Os dois jogadores iram jogar o dado, o jogador que tirar o maior número é o primeiro a escolher"
                 + "\n    o personagem e inicia a partida.");
         System.out.println("    Ambos jogadores escolhem seus personagens");
@@ -485,7 +505,7 @@ public class FireHunter {
         System.out.println("");
         System.out.println("***************************************************************************************************************");
         System.out.println("");
-        
+
         System.out.println("*********************************************** Função do dado *************************************************");
         System.out.println("    1 –  --  Ataque no escudo ou ataque na vida.");
         System.out.println("    2 – (+2) Ataque no escudo ou cura.");
@@ -495,16 +515,9 @@ public class FireHunter {
         System.out.println("    6 – (+6) Ataque no escudo ou ataque na vida ou cura.");
         System.out.println("    Apartir da 2 face do dado começa a ser acrescentado o valor do dado ao dano ou cura.");
         System.out.println("");
-        
+
         System.out.println("***************************************************************************************************************");
         System.out.println("");
-        System.out.println("    Iniciar o jogo - 1, Sair - 2.");
-        System.out.println("    Escolha um opçao:");
-        esc = teclado.nextInt();
-        if (esc == 1) {
-            iniciar();
-        }
-
     }
 }
 //TESTE 2.
