@@ -357,7 +357,7 @@ public class FireHunter {
 
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
 
-                System.out.println("Dado" + nomeP1 + ": " + opcaoP1);
+                System.out.println("Dado " + nomeP1 + ": " + opcaoP1);
 
                 //Passa os dados para a funcão ação. Onde incrementa ou decrementa.
                 //Conforme a opção do dado.
@@ -384,8 +384,8 @@ public class FireHunter {
 
             case 1:
 
-                System.out.println("1 - Ataque no escudo (" + (atributosPersonagens[player - 1][1] + opcao)
-                        + ")\nou\n2- ataque na vida (" + (atributosPersonagens[player - 1][0] + opcao) + ")");
+                System.out.println("1 - Ataque no escudo (" + (atributosPersonagens[player - 1][1])
+                        + ")\nou\n2- ataque na vida (" + (atributosPersonagens[player - 1][0]) + ")");
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
@@ -465,7 +465,7 @@ public class FireHunter {
             case 5:
 
                 System.out.println("1 - ataque na vida (" + (atributosPersonagens[player - 1][0] + opcao)
-                        + ")\nou\n2- cura (" + atributosPersonagens[player - 1][2] + opcao + ")");
+                        + ")\nou\n2- cura (" + (atributosPersonagens[player - 1][2] + opcao) + ")");
                 choose = teclado.nextInt();
 
                 if (choose == 1) {
