@@ -10,6 +10,9 @@ public class FireHunter {
     public static void main(String[] args) {
         int escolha = 0;
         boolean sair = false;
+
+        //Execulta enquanto a opção for diferente de 3 e 
+        //enquanto o usario não desejar sair.
         while (escolha != 3 && sair != true) {
             escolha = menu();
 
@@ -17,7 +20,9 @@ public class FireHunter {
 
                 case 1:
                     iniciar();
+
                     boolean c = false;
+                    //Faz continuar entano opcão diferente de Não.
                     while (!c) {
                         System.out.println("Deseja continuar jogando? (Sim ou Não)");
                         char continua = teclado.next().charAt(0);
@@ -30,9 +35,13 @@ public class FireHunter {
                     }
                     sair = true;
                     break;
+
+                //Mostra as instruções.
                 case 2:
                     instruções();
                     break;
+
+                //Saida do jogo.
                 case 3:
                     System.out.println("Obrigado por jogar. Até a proxima batalha.");
                     break;
@@ -41,6 +50,7 @@ public class FireHunter {
         }
     }
 
+    //Mostra menu. Retorando uma opção.
     static int menu() {
         int escolha;
         Scanner teclado = new Scanner(System.in);
@@ -54,6 +64,7 @@ public class FireHunter {
         return escolha;
     }
 
+    //Função que inicia o jogo. 
     static void iniciar() {
         String SEPARADOR = "====================================================";
 
@@ -77,13 +88,15 @@ public class FireHunter {
 
             d2 = dado.nextInt(6) + 1;
 
+            //Faz não repetir o mesmo numero do dado.
         } while (d1 == d2);
         System.out.println(SEPARADOR);
         System.out.println("Dado " + nomeP1 + ": " + d1 + " Dado " + nomeP2 + ": " + d2);
 
-        /*Cria os atributos de cada personagem. Linha e condizente a cada personagem. 
+        /*Cria os atributos de cada personagem. 
+        Linha e condizente a cada personagem. 
         Sendo sua sequencia: (Mago, Templario, Ranger, Druida).
-        Coluna sao os seus atributos. (Vida, esculdo e cura).
+        Coluna são os seus atributos. (Vida, esculdo e cura).
          */
         int atributosPersonagens[][] = {
             {5, 5, 2},
@@ -94,18 +107,20 @@ public class FireHunter {
 
         /*
         Cria a vida e escudo de cada jogador.
-        Linha e o player.
-        coluna e a vida e esculdo.
+        Linha é o player.
+        Coluna é a vida e esculdo.
          */
         int vidasPersonagens[][] = {
             {10, 10},
             {10, 10}
         };
+
         // Passa para função ação o tamanho maximo da vida.
         int vida = vidasPersonagens[0][0];
-        //contador personagem 
+
+        //Decide que vai ser o player 1.
         if (d1 > d2) {
-            //DADO COM O NUMERO MAIOR PARA JOGADOR 1
+            //Dado com o numero maior para o jogador 1.
 
             System.out.println(SEPARADOR);
             System.out.println("Jogador 1: " + nomeP1 + " Venceu!");
@@ -118,7 +133,7 @@ public class FireHunter {
             listaPersonagens();
             p2 = teclado.nextInt();
 
-            //SE O PERSONAGEM FO JOGADOR 1 FOR IGUAL AO JOGADOR 2
+            //Faz não repetir o mesmo numero do dado.
             while (p1 == p2) {
                 System.out.println(SEPARADOR);
                 System.out.println(" O personagem já foi escolhido " + nomeP2 + " escolha outro personagem: ");
@@ -143,6 +158,7 @@ public class FireHunter {
             p1 = teclado.nextInt();
             System.out.println(SEPARADOR);
 
+            //Faz não repetir o mesmo numero do dado.
             while (p1 == p2) {
                 System.out.println(SEPARADOR);
                 System.out.println("O Personagem já foi escolhido," + nomeP1 + " escolha outro personagem");
@@ -152,10 +168,14 @@ public class FireHunter {
                 System.out.println(SEPARADOR);
             }
         }
+        //Mostra a descisao dos personagens.
         escolhasjogador(p1, p2);
+
+        //Passa para batalha os dados ensenciais para o funcionamento.
         Batalha(nomeP1, nomeP2, p1, p2, d1, d2, atributosPersonagens, vidasPersonagens, vida, nomeP1, nomeP2);
     }
 
+    //Mostra os personagens, suas historias e os seus atributos.
     static void listaPersonagens() {
         String SEPARADOR = "====================================================";
 
@@ -201,6 +221,7 @@ public class FireHunter {
 
     }
 
+    //Mostra o duelo entre os personagens escolhidos.
     static void escolhasjogador(int p1, int p2) {
         String SEPARADOR = "====================================================";
         System.out.println("A batalha será: ");
@@ -242,10 +263,18 @@ public class FireHunter {
         System.out.println(SEPARADOR);
     }
 
+    /*Funcão onde faz repetir o jogo ate que a vida e esculdo 
+    de algum personagem zere.
+    Alem disso gera o dados para fazer suas funcoes.
+     */
     static void Batalha(String nomeP1, String nomeP2, int p1, int p2, int d1, int d2, int atributosPersonagens[][], int vidasPersonagens[][], int vida, String nomep1, String nomep2) {
         int opcaoP1, opcaoP2, choose, jogador1 = 1, jogador2 = 0, jogarDado;
         Random dadoLuta = new Random();
+
+        //Imprimi vida inicial.
         impressao(vidasPersonagens);
+
+        //Repete até a vida e esculdo zerar de algum dos jogadores.
         while (((vidasPersonagens[0][0] > 0) || (vidasPersonagens[0][1] > 0)) && ((vidasPersonagens[1][0] > 0) || (vidasPersonagens[1][1] > 0))) {
 
             if (d1 > d2) {
@@ -256,11 +285,19 @@ public class FireHunter {
                     jogarDado = teclado.nextInt();
 
                 } while (jogarDado != 0);
+
+                //Gera um valor aleatorio de 1 a 6.
                 opcaoP1 = dadoLuta.nextInt(6) + 1;
                 System.out.println("Dado " + nomeP1 + ": " + opcaoP1);
 
+                //Passa os dados para a funcão ação. Onde incrementa ou decrementa.
+                //Conforme a opção do dado.
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador1, vida);
+
+                //Imprime o placar.
                 impressao(vidasPersonagens);
+
+                //Saida forçada do laço para encerrar o programa.
                 if (((vidasPersonagens[1][0] == 0) && (vidasPersonagens[1][1] == 0))) {
                     break;
                 }
@@ -272,14 +309,17 @@ public class FireHunter {
 
                 } while (jogarDado != 0);
 
+                //Gera um valor aleatorio de 1 a 6.
                 opcaoP2 = dadoLuta.nextInt(6) + 1;
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
+                //Passa os dados para a funcão ação. Onde incrementa ou decrementa.
+                //Conforme a opção do dado;
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador2, vida);
+
+                //Imprime o placar.
                 impressao(vidasPersonagens);
-                vidasPersonagens[0][0] = 0;
-                vidasPersonagens[0][1] = 0;
 
             } else {
 
@@ -295,8 +335,14 @@ public class FireHunter {
 
                 System.out.println("Dado " + nomeP2 + ": " + opcaoP2);
 
+                //Passa os dados para a funcão ação. Onde incrementa ou decrementa.
+                //Conforme a opção do dado.
                 acao(p2, atributosPersonagens, opcaoP2, vidasPersonagens, jogador1, vida);
+
+                //Imprime o placar.
                 impressao(vidasPersonagens);
+
+                //Saida forçada do laço para encerrar o programa.
                 if (((vidasPersonagens[1][0] == 0) && (vidasPersonagens[1][1] == 0))) {
                     break;
                 }
@@ -313,19 +359,25 @@ public class FireHunter {
 
                 System.out.println("Dado" + nomeP1 + ": " + opcaoP1);
 
+                //Passa os dados para a funcão ação. Onde incrementa ou decrementa.
+                //Conforme a opção do dado.
                 acao(p1, atributosPersonagens, opcaoP1, vidasPersonagens, jogador2, vida);
+
+                //Imprime o placar.
                 impressao(vidasPersonagens);
-                vidasPersonagens[0][0] = 0;
-                vidasPersonagens[0][1] = 0;
             }
         }
+        //Jogador 1 venceu.
         if (((vidasPersonagens[0][0] == 0) && (vidasPersonagens[0][1] == 0))) {
             System.out.println("PARABENS JOGADOR: " + nomep1);
+            //Jogador 2 venceu.
         } else {
             System.out.println("PARABENS JOGADOR: " + nomep2);
         }
     }
 
+    //Função ela faz o incremento e decremento da vida.
+    //Da vida ao jogo.
     static void acao(int player, int atributosPersonagens[][], int opcao, int vidasPersonagens[][], int jogador, int vida) {
         int choose;
         switch (opcao) {
@@ -371,7 +423,7 @@ public class FireHunter {
                         jogador = 1;
                     }
                     vidasPersonagens[jogador][0] += 2 + atributosPersonagens[player - 1][2];
-                    if (vidasPersonagens[jogador][0] > 10) {
+                    if (vidasPersonagens[jogador][0] > vida) {
                         vidasPersonagens[jogador][0] = vida;
                     }
 
@@ -395,14 +447,16 @@ public class FireHunter {
                 System.out.println("1 - cura (" + (atributosPersonagens[player - 1][2] + opcao) + ")");
                 choose = teclado.nextInt();
                 if (choose == 1) {
+
                     //Fazer inverter a logica. Que antes era de decrementar na vida do outro personagem.
                     if (jogador == 1) {
                         jogador = 0;
                     } else {
                         jogador = 1;
                     }
+
                     vidasPersonagens[jogador][0] += 4 + atributosPersonagens[player - 1][2];
-                    if (vidasPersonagens[jogador][0] > 10) {
+                    if (vidasPersonagens[jogador][0] > vida) {
                         vidasPersonagens[jogador][0] = vida;
                     }
                 }
@@ -427,7 +481,7 @@ public class FireHunter {
                         jogador = 1;
                     }
                     vidasPersonagens[jogador][0] += 5 + atributosPersonagens[player - 1][2];
-                    if (vidasPersonagens[jogador][0] > 10) {
+                    if (vidasPersonagens[jogador][0] > vida) {
                         vidasPersonagens[jogador][0] = vida;
                     }
                 }
@@ -453,7 +507,7 @@ public class FireHunter {
                         jogador = 1;
                     }
                     vidasPersonagens[jogador][0] += 6 + atributosPersonagens[player - 1][2];
-                    if (vidasPersonagens[jogador][0] > 10) {
+                    if (vidasPersonagens[jogador][0] > vida) {
                         vidasPersonagens[jogador][0] = vida;
                     }
 
@@ -469,6 +523,7 @@ public class FireHunter {
 
     }
 
+    //Mostra vida dos jogadores.
     static void impressao(int vidasPersonagens[][]) {
         String SEPARADOR = "====================================================";
         for (int i = 0; i < vidasPersonagens.length; i++) {
@@ -488,6 +543,7 @@ public class FireHunter {
         }
     }
 
+    //Instruções do jogo.
     static void instruções() {
         Scanner teclado = new Scanner(System.in);
         int esc;
@@ -520,4 +576,3 @@ public class FireHunter {
         System.out.println("");
     }
 }
-//TESTE 2.
